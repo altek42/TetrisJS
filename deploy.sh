@@ -7,6 +7,9 @@ PASSWD='Qwerty123'
 ftp -n $HOST <<END_SCRIPT
 quote USER $USER
 quote PASS $PASSWD
+binary
+prompt
+
 cd raset.cba.pl
 
 lcd ./dist
