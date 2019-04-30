@@ -5,3 +5,7 @@ Array.prototype.transpose = function () {
 Array.prototype.rotate90 = function () {
 	return this.transpose().reverse()
 }
+
+Array.prototype.rotateNeg90 = function () {
+	return this.reverse().transpose()
+}

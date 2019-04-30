@@ -12,6 +12,10 @@ class Brick {
 		this._shape = this._shape.rotate90()
 	}
 
+	rotateNeg(){
+		this._shape = this._shape.rotateNeg90();
+	}
+
 	static rand() {
 		const r = Math.floor(Math.random() * BrickTypeLength)
 		const type = Object.values(BrickType)[r]

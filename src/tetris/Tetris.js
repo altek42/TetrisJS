@@ -3,7 +3,7 @@ import { BOARD } from '../Game.config';
 
 class Tetris {
 	constructor(props = {}) {
-		const { 
+		const {
 			onGameOver,
 		} = props;
 		this._onGameOver = onGameOver
@@ -20,7 +20,7 @@ class Tetris {
 		const { x, y } = this._position;
 		const shape = this._brick.shape;
 		let view = this.board;
-		
+
 		for (let sY = 0; sY < shape.length; sY++) {
 			const bY = sY + y;
 			for (let sX = 0; sX < shape[sY].length; sX++) {
@@ -115,6 +115,18 @@ class Tetris {
 
 	rotate() {
 		this._brick.rotate()
+		let x = this._position.x
+		const shape = this._brick.shape;
+		const width = shape[0].length;
+
+		let m = (x + width) - this._width;
+		if (m <= 0) m = 0;
+		this._position.x -= m
+
+		if (!this._isBrickPositionValid) {
+			this._position.x +=m
+			this._brick.rotateNeg()
+		}
 	}
 
 	confirmMove() {
@@ -123,7 +135,7 @@ class Tetris {
 
 	_gameOver() {
 		console.log('game over');
-		if(this._onGameOver) this._onGameOver();
+		if (this._onGameOver) this._onGameOver();
 	}
 }
 
