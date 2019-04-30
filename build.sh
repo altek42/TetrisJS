@@ -9,5 +9,8 @@ else
 	mode=$1
 fi
 
+npm run build
+git add -A
+git commit -m "Build"
+
 npm version $mode
-# npm run build
