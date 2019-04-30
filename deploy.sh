@@ -10,7 +10,7 @@ quote PASS $PASSWD
 cd raset.cba.pl
 
 lcd ./dist
-put *.txt
+mput *.*
 quit
 END_SCRIPT
 exit 0

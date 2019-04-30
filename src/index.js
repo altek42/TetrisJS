@@ -4,8 +4,9 @@ import Tetris from './tetris/Tetris'
 import Board from './presentation/Board';
 import Player from './controller/Player';
 import { BOARD_RENDER } from './Game.config';
+import  pjson from '../package.json';
 
-console.log("TETRIS");
+console.log("TETRIS", pjson.version);
 
 
 class Program {
