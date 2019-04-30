@@ -1,0 +1,13 @@
+body {
+	font-family: "Gill Sans", sans-serif;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container>div{
+	margin: 20px;
+}
