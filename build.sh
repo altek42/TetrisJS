@@ -10,4 +10,4 @@ else
 fi
 
 npm version $mode
-npm run build
+# npm run build
