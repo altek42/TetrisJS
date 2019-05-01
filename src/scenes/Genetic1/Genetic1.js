@@ -1,4 +1,5 @@
 import Game from '../../game/Genetic1'
+import { HomeButton } from '../components/Button';
 
 class Genetic1 {
 	
@@ -9,6 +10,7 @@ class Genetic1 {
 		new Game(e)
 
 		parentElement.appendChild(e);
+		parentElement.appendChild(HomeButton())
 	}
 }
 
