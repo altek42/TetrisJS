@@ -40,16 +40,36 @@ class Gen1 {
 	run() {
 		this._tetris.reset();
 		this._gameOver = false;
-		// while (this._gameOver) {
-		// this._checkMove()
-		// }
+		
+		this._loop()
 	}
 
-	_checkMove() {
+	_loop = () => {
+		if(this._gameOver) return;
+		this._rateMoves()
+		const { x, rot } = this._getBestMove()
+		this._move(x, rot, true)
+		this._onUpdate()
+
+		setTimeout(this._loop, 200)
+	}
+
+	_getBestMove() {
+		const best = Object.keys(this._rate).reduce((prev, curr) => {
+			return this._rate[prev] > this._rate[curr] ? prev : curr
+		})
+		const ar = best.split(',')
+		return {
+			x: parseInt(ar[0]),
+			rot: parseInt(ar[1])
+		}
+	}
+
+	_rateMoves() {
+		this._rate = {}
 		for (let x = 0; x < BOARD.width; x++)
 			for (let rot = 0; rot < 4; rot++) {
-				_move(x, rot)
-				_rate()
+				this._rateMove(x, rot)
 			}
 	}
 
@@ -58,9 +78,15 @@ class Gen1 {
 		this._tetris.confirmMove(confirm)
 	}
 
-	_rate() {
-		this._rate = {}
-
+	_rateMove(x, rot) {
+		this._move(x, rot)
+		const prop = this._getProperties()
+		const weight = this._weight
+		let rate = 0
+		for (let key in prop) {
+			rate += prop[key] * weight[key]
+		}
+		this._rate[[x, rot]] = rate;
 	}
 
 	_getProperties() {

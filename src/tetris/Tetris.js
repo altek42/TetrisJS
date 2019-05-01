@@ -144,7 +144,13 @@ class Tetris {
 	}
 
 	set brickStartPosition({ x, rot }) {
-		this._position = { x: 0, y: BOARD.brickY }
+		this._position = { x: BOARD.brickX, y: BOARD.brickY }
+		let toStartX = BOARD.brickX;
+		while (toStartX > 0) {
+			this.moveLeft()
+			toStartX -= 1
+		}
+
 		this._brick.resetRotation()
 		while (rot > 0){
 			this._brick.rotate();
@@ -154,6 +160,10 @@ class Tetris {
 			this.moveRight()
 			x--;
 		}
+		if (!this._isBrickPositionValid) {
+			return false
+		}
+		return true
 	}
 
 	_gameOver() {
