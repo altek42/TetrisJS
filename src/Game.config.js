@@ -20,13 +20,13 @@ export const SCORE_TEXT = {
 
 export const BrickColor = (key) => {
 	switch (key) {
-		case 1: return 0xFF0000;
-		case 2: return 0x00FF00;
-		case 3: return 0x0080ff;
-		case 4: return 0xFFFF00;
-		case 5: return 0x00FFFF;
-		case 6: return 0xFF00FF;
-		case 7: return 0x8800FF;
+		case 1: return 0xe6194B;
+		case 2: return 0xf58231;
+		case 3: return 0xffe119;
+		case 4: return 0x3cb44b;
+		case 5: return 0x42d4f4;
+		case 6: return 0xf032e6;
+		case 7: return 0x4363d8;
 		default: return 0x333333;
 	}
 }
