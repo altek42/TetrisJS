@@ -8,9 +8,9 @@ if [ "$#" -eq "0" ]; then
 else
 	mode=$1
 fi
+npm version $mode
 
 npm run build
 git add -A
 git commit -m "Build"
 
-npm version $mode
