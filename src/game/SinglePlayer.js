@@ -29,7 +29,7 @@ class SinglePlayer {
 
 	update = () => {
 		this.app.stage.removeChildren()
-		this.board.draw(this.game.view)
+		this.board.draw(this.game.view, this.game.score)
 	}
 
 	gameOver = () => {

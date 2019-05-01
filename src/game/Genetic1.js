@@ -31,10 +31,11 @@ class Genetic1 {
 
 	update = () => {
 		this.app.stage.removeChildren()
-		this.board.draw(this.game.view)
+		this.board.draw(this.game.view, this.game.score)
 	}
 
 	gameOver = () => {
+		console.log('game over');
 		this.player.onGameOver()
 	}
 }

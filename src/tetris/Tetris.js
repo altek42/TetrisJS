@@ -16,6 +16,7 @@ class Tetris {
 	reset() {
 		this._initBoard()
 		this._createNewBrick()
+		this._score = 0
 	}
 
 	get width() { return this._width }
@@ -73,11 +74,24 @@ class Tetris {
 	}
 
 	_clearFullLines() {
+		let lines = 0
 		for (let i = 0; i < this._board.length; i++) {
 			if (!this._board[i].includes(0)) {
 				this._board.splice(i, 1);
 				this._board.unshift(new Array(this.width).fill(0))
+				lines += 1
 			}
+		}
+		this._addScore(lines)
+	}
+
+	_addScore(lines) {
+		switch (lines) {
+			case 1: this._score += 1; break;
+			case 2: this._score += 5; break;
+			case 3: this._score += 20; break;
+			case 4: this._score += 100; break;
+			default: break;
 		}
 	}
 
@@ -138,6 +152,10 @@ class Tetris {
 		while (this.moveDown(confirm));
 	}
 
+	get score() {
+		return this._score;
+	}
+
 	resetBrickPosition() {
 		this._position = { x: BOARD.brickX, y: BOARD.brickY }
 		this._brick.resetRotation()
@@ -152,7 +170,7 @@ class Tetris {
 		}
 
 		this._brick.resetRotation()
-		while (rot > 0){
+		while (rot > 0) {
 			this._brick.rotate();
 			rot--;
 		}
@@ -167,7 +185,6 @@ class Tetris {
 	}
 
 	_gameOver() {
-		console.log('game over');
 		if (this._onGameOver) this._onGameOver();
 	}
 }

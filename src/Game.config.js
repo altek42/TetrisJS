@@ -12,6 +12,12 @@ export const BRICK_SIZE = {
 	space: 4,
 }
 
+export const SCORE_TEXT = {
+	fontFamily: "Arial",
+	fontSize: 18,
+	fill: "white",
+}
+
 export const BrickColor = (key) => {
 	switch (key) {
 		case 1: return 0xFF0000;
@@ -27,6 +33,6 @@ export const BrickColor = (key) => {
 
 export const BOARD_RENDER = {
 	width: BOARD.width * (BRICK_SIZE.space + BRICK_SIZE.width) - BRICK_SIZE.space,
-	height: BOARD.height * (BRICK_SIZE.space + BRICK_SIZE.height) - BRICK_SIZE.space,
+	height: BOARD.height * (BRICK_SIZE.space + BRICK_SIZE.height) + SCORE_TEXT.fontSize,
 	margin: BRICK_SIZE.space * 2,
 }

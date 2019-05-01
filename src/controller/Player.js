@@ -5,6 +5,7 @@ class Player {
 		this._onUpdate = onUpdate;
 
 		window.addEventListener("keydown", this.handleKeyDown);
+		this._loop = setInterval(this.onDown, 500)
 	}
 
 	handleKeyDown = event => {
@@ -68,6 +69,7 @@ class Player {
 
 	release() {
 		window.removeEventListener("keydown", this.handleKeyDown);
+		clearInterval(this._loop);
 	}
 }
 
