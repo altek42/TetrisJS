@@ -1,5 +1,5 @@
 import { Graphics, Text, TextStyle } from 'pixi.js'
-import { BRICK_SIZE, BrickColor, SCORE_TEXT } from '../Game.config';
+import { BRICK_SIZE, BrickColor, SCORE_TEXT, BOARD, BOARD_RENDER } from '../Game.config';
 
 class Board {
 	constructor(app, { x, y }) {
@@ -13,15 +13,14 @@ class Board {
 			for (let x = 0; x < state[y].length; x++)
 				this._drawBrick(x, y, state[y][x])
 
-		this._renderScore(state.length, state[0].length, score)
+		this._renderScore(score)
 	}
 
-	_renderScore = (brickHeight, brickWidth, score) => {
-		const pos = this._calcPosition(brickWidth, brickHeight)
+	_renderScore = (score) => {
 		const style = new TextStyle(SCORE_TEXT)
 		const text = new Text(`Score: ${score}`, style)
-		text.position.y = pos.py
-		text.position.x = (pos.px / 2) - (text.width / 2)
+		text.position.y = BOARD_RENDER.height - SCORE_TEXT.fontSize + this._y
+		text.position.x = (BOARD_RENDER.width / 2) - (text.width / 2) + this._x
 
 		this._app.stage.addChild(text);
 	}
@@ -30,6 +29,7 @@ class Board {
 		px: this._x + (x * (BRICK_SIZE.width + BRICK_SIZE.space)),
 		py: this._y + (y * (BRICK_SIZE.height + BRICK_SIZE.space)),
 	})
+
 
 	_drawBrick = (x, y, color) => {
 		const { px, py } = this._calcPosition(x, y)

@@ -2,6 +2,10 @@ body {
 	font-family: "Gill Sans", sans-serif;
 }
 
+.game-canvas{
+	max-height: 85vh;
+}
+
 .header {
 	text-align: center;
 }

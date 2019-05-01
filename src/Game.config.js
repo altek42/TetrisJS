@@ -36,3 +36,8 @@ export const BOARD_RENDER = {
 	height: BOARD.height * (BRICK_SIZE.space + BRICK_SIZE.height) + SCORE_TEXT.fontSize,
 	margin: BRICK_SIZE.space * 2,
 }
+
+export const GENETIC_1 = {
+	population: 10,
+	rowCount: 2,
+}

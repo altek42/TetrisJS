@@ -1,7 +1,7 @@
 import { BOARD } from "../Game.config";
 
 class Gen1 {
-	constructor(tetris, onUpdate) {
+	constructor(tetris, onUpdate = () => {}) {
 		this._tetris = tetris;
 		this._onUpdate = onUpdate;
 		this.initParams();

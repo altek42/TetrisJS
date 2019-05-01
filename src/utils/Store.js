@@ -21,8 +21,6 @@ class Store {
 	}
 
 	_emitUpdate = () => {
-		console.log('state', this._state);
-		
 		if (this._onUpdate) this._onUpdate();
 	}
 }
