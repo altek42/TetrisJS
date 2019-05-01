@@ -13,7 +13,7 @@ class Tetris {
 		this.reset()
 	}
 
-	reset(){
+	reset() {
 		this._initBoard()
 		this._createNewBrick()
 	}
@@ -94,11 +94,11 @@ class Tetris {
 		this._board = this.view
 	}
 
-	moveDown(confirm=true) {
+	moveDown(confirm = true) {
 		this._position.y += 1
 		if (!this._isBrickPositionValid) {
 			this._position.y -= 1
-			if(confirm) this._newTurn()
+			if (confirm) this._newTurn()
 			return false
 		}
 		return true
@@ -129,18 +129,31 @@ class Tetris {
 		this._position.x -= m
 
 		if (!this._isBrickPositionValid) {
-			this._position.x +=m
+			this._position.x += m
 			this._brick.rotateNeg()
 		}
 	}
 
-	confirmMove(confirm=true) {
+	confirmMove(confirm = true) {
 		while (this.moveDown(confirm));
 	}
 
-	resetBrickPosition(){
+	resetBrickPosition() {
 		this._position = { x: BOARD.brickX, y: BOARD.brickY }
 		this._brick.resetRotation()
+	}
+
+	set brickStartPosition({ x, rot }) {
+		this._position = { x: 0, y: BOARD.brickY }
+		this._brick.resetRotation()
+		while (rot > 0){
+			this._brick.rotate();
+			rot--;
+		}
+		while (x > 0) {
+			this.moveRight()
+			x--;
+		}
 	}
 
 	_gameOver() {
