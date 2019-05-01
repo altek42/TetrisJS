@@ -13,6 +13,12 @@ class Home {
 
 		e.appendChild(Button('Single player', this.redirect('/player')));
 		e.appendChild(Button('Genetic Algorithm', this.redirect('/ai')));
+		
+		const link = document.createElement('a')
+		link.href = 'https://github.com/altek42/TetrisJS'
+		link.innerText = 'sources'
+		link.className = 'github-link'
+		e.appendChild(link)
 
 		parentElement.appendChild(e)
 	}
