@@ -6,7 +6,8 @@ import { BOARD_RENDER, GENETIC_1 } from "../Game.config";
 
 class Genetic1 {
 	constructor(rootElement) {
-		this.rootElement = rootElement;
+		this.rootElement = document.createElement('div');
+		rootElement.appendChild(this.rootElement)
 
 		//create games
 		this.games = new Array(GENETIC_1.population).fill(0).map((x, i) => {
@@ -52,6 +53,15 @@ class Genetic1 {
 		this.loop = setInterval(() => {
 			this.update()
 		}, 200);
+
+		this.label = document.createElement('p');
+		this.rootElement.appendChild(this.label)
+		this.label.className='gen-text'
+		this.genText = '0'
+	}
+
+	set genText(arg) {
+		this.label.innerText = `Gen: ${arg}`
 	}
 
 	runAll = async () => {

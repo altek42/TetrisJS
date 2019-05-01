@@ -3,7 +3,7 @@ body {
 }
 
 .game-canvas{
-	max-height: 85vh;
+	max-height: 83vh;
 }
 
 .header {
@@ -17,7 +17,7 @@ body {
 }
 
 .container>div{
-	margin: 20px;
+	margin: 0 20px;
 }
 
 .home {
@@ -33,4 +33,8 @@ body {
 .home-button{
 	text-align: center;
 	margin-top: 10px;
+}
+
+.gen-text{
+	margin:0
 }
