@@ -18,16 +18,19 @@ class Player {
 				this.onLeft()
 				break;
 			case 's':
-			case 'ArrowDown': 
+			case 'ArrowDown':
 				this.onDown()
 				break;
 			case 'n':
-			case 'Enter': 
+			case 'Enter':
 				this.onConfirm();
 				break;
 			case 'm':
-			case "'": 
+			case "'":
 				this.onRotate();
+				break;
+			case 'r':
+				this.reset();
 				break;
 			default: break;
 		}
@@ -58,7 +61,12 @@ class Player {
 		this._onUpdate();
 	}
 
-	release(){
+	reset = () => {
+		this._tetris.reset();
+		this._onUpdate();
+	}
+
+	release() {
 		window.removeEventListener("keydown", this.handleKeyDown);
 	}
 }

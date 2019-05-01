@@ -2,6 +2,8 @@
 export const BOARD = {
 	width: 10,
 	height: 20,
+	brickX: 3,
+	brickY: 0,
 }
 
 export const BRICK_SIZE = {

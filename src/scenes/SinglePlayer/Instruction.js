@@ -14,6 +14,7 @@ class Instruction {
 		this.line(e,'[s], [ArrowDown] - move down')
 		this.line(e,'[n], [Enter] - confirm move')
 		this.line(e,'[m], [\'] - rotate')
+		this.line(e,'[r] - reset game')
 		parentElement.appendChild(e);
 	}
 }

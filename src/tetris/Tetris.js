@@ -2,6 +2,7 @@ import Brick from './Brick'
 import { BOARD } from '../Game.config';
 
 class Tetris {
+
 	constructor(props = {}) {
 		const {
 			onGameOver,
@@ -9,6 +10,10 @@ class Tetris {
 		this._onGameOver = onGameOver
 		this._width = BOARD.width
 		this._height = BOARD.height
+		this.reset()
+	}
+
+	reset(){
 		this._initBoard()
 		this._createNewBrick()
 	}
@@ -44,7 +49,7 @@ class Tetris {
 
 	_createNewBrick() {
 		this._brick = Brick.rand();
-		this._position = { x: 3, y: 0 }
+		this._position = { x: BOARD.brickX, y: BOARD.brickY }
 	}
 
 	get _isBrickPositionValid() {
@@ -89,11 +94,11 @@ class Tetris {
 		this._board = this.view
 	}
 
-	moveDown() {
+	moveDown(confirm=true) {
 		this._position.y += 1
 		if (!this._isBrickPositionValid) {
 			this._position.y -= 1
-			this._newTurn()
+			if(confirm) this._newTurn()
 			return false
 		}
 		return true
@@ -129,8 +134,13 @@ class Tetris {
 		}
 	}
 
-	confirmMove() {
-		while (this.moveDown());
+	confirmMove(confirm=true) {
+		while (this.moveDown(confirm));
+	}
+
+	resetBrickPosition(){
+		this._position = { x: BOARD.brickX, y: BOARD.brickY }
+		this._brick.resetRotation()
 	}
 
 	_gameOver() {
