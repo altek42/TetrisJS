@@ -3,6 +3,7 @@ import Tetris from "../tetris/Tetris";
 import { Application } from "pixi.js";
 import Board from "../presentation/Board";
 import { BOARD_RENDER, GENETIC_1 } from "../Game.config";
+import Population from "../controller/utils/Population";
 
 class Genetic1 {
 	constructor(rootElement) {
@@ -49,18 +50,35 @@ class Genetic1 {
 		})
 
 		//
+		this.start()
+
+		// //TEST
+		// let createOb = (n) => ({
+		// 	weight: { a: n, b: n, c: n, d: n },
+		// 	adaptation: n,
+		// })
+		// let arr = new Array(8).fill(0).map( (x,i) => createOb(i) )
+		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
+		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
+		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
+		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
+		// //END TEST
+
+		this.label = document.createElement('p');
+		this.rootElement.appendChild(this.label)
+		this.label.className = 'gen-text'
+		this.genText = 0
+	}
+
+	start() {
 		this.runAll()
 		this.loop = setInterval(() => {
 			this.update()
 		}, 200);
-
-		this.label = document.createElement('p');
-		this.rootElement.appendChild(this.label)
-		this.label.className='gen-text'
-		this.genText = '0'
 	}
 
 	set genText(arg) {
+		this._gen = arg
 		this.label.innerText = `Gen: ${arg}`
 	}
 
@@ -81,16 +99,25 @@ class Genetic1 {
 			const game = this.games[i]
 			item.draw(game.view, game.score)
 		})
-		if(this.runningGames <= 0){
-			console.log('stop render');
+		if (this.runningGames <= 0) {
 			clearInterval(this.loop)
+			this.createNewPopupaltion()
+			this.genText = this._gen + 1
+			this.start()
+		}
+	}
+
+	createNewPopupaltion = () => {
+		let populationWeights = Population.next(this.players)
+		for (let i = 0; i < this.players.length; i++) {
+			this.players[i].weight = populationWeights[i];
 		}
 	}
 
 	gameOver = id => () => {
 		this.runningGames--
-		console.log('game over', id, this.runningGames);
 		this.players[id].onGameOver()
+		this.players[id].adaptation = this.games[id].score;
 	}
 }
 

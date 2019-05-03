@@ -38,6 +38,12 @@ export const BOARD_RENDER = {
 }
 
 export const GENETIC_1 = {
-	population: 10,
-	rowCount: 2,
+	population: 26,
+	rowCount: 3,
+}
+
+export const GEN_POPULATION = {
+	champions: 3,
+	cross: 0.8,
+	mutate: 0.1,
 }

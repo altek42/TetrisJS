@@ -1,7 +1,7 @@
 import { BOARD } from "../Game.config";
 
 class Gen1 {
-	constructor(tetris, onUpdate = () => {}) {
+	constructor(tetris, onUpdate = () => { }) {
 		this._tetris = tetris;
 		this._onUpdate = onUpdate;
 		this.initParams();
@@ -26,6 +26,19 @@ class Gen1 {
 			return;
 		}
 		this._weight = param
+		this._adaptation = 0
+	}
+
+	get weight() {
+		return this._weight;
+	}
+
+	set adaptation(value) {
+		this._adaptation = value
+	}
+
+	get adaptation() {
+		return this._adaptation
 	}
 
 	initParams = () => {
@@ -35,23 +48,27 @@ class Gen1 {
 			flatnes: this._randWeight,
 			clear: this._randWeight,
 		}
+		this._adaptation = 0
 	}
 
 	run() {
 		this._tetris.reset();
 		this._gameOver = false;
-		
+
 		this._loop()
 	}
 
 	_loop = () => {
-		if(this._gameOver) return;
+		// while(!this._gameOver){
+		if (this._gameOver) return;
 		this._rateMoves()
 		const { x, rot } = this._getBestMove()
 		this._move(x, rot, true)
 		this._onUpdate()
+		// }
 
 		setTimeout(this._loop, 200)
+		// this.
 	}
 
 	_getBestMove() {
