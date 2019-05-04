@@ -1,4 +1,5 @@
 import { BOARD } from "../Game.config";
+import { Code } from "../utils/Guid";
 
 class Gen1 {
 	constructor(tetris, onUpdate = () => { }) {
@@ -10,6 +11,21 @@ class Gen1 {
 	get _randWeight() {
 		return (Math.random() - 0.5) * 2
 	}
+
+	/**
+	 * params = {
+	 * 	weight={}
+	 * 	parents=[]
+	 * }
+	 */
+	set nextUnit({ weight, parents }) {
+		this._code = Code()
+		this.weight = weight
+		this._parents = parents
+	}
+
+	get parents() { return this._parents }
+	get code() { return this._code }
 
 	set weight(param) {
 		const {
@@ -49,6 +65,8 @@ class Gen1 {
 			clear: this._randWeight,
 		}
 		this._adaptation = 0
+		this._code = Code()
+		this._parents = []
 	}
 
 	run() {
@@ -67,7 +85,7 @@ class Gen1 {
 		this._onUpdate()
 		// }
 
-		setTimeout(this._loop, 200)
+		setTimeout(this._loop, 100)
 		// this.
 	}
 

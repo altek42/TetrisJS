@@ -45,3 +45,39 @@ body {
 	font-size: 11px;
 	margin-top: 10px;
 }
+
+/* log */
+
+.log-row {
+	background-color: #cccccc;
+}
+
+.log-row-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.log-row-container > div {
+	margin: 5px;
+	border: 1px solid #000000;
+}
+
+.log-row-container > div > p {
+	padding: 0 5px;
+	margin: 0;
+}
+
+.log-row-container > div > p:nth-child(even) {
+	background: #ffffff
+}
+
+.log-row-unit-1 {
+	padding: 0 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.log-row-unit-1 p {
+	margin: 0;
+}

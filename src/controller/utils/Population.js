@@ -6,7 +6,13 @@ class Population {
 	/**
 	* oldPopulation = ArrayOf({
 	* 	weight = {},
-	* 	adaptation = number
+	* 	adaptation = number,
+	* 	code = string
+	* })
+	* 
+	* @returm ArrayOf({
+	* 	weight = {},
+	* 	parents = ArrayOf(string)
 	* })
 	*/
 	static next(oldPopulation) {
@@ -33,7 +39,7 @@ class Population {
 				best = r
 			}
 		}
-		return { ...oldPopulation[r].weight }
+		return oldPopulation[r]
 	}
 
 	static _randInt(min, max) {
@@ -53,12 +59,15 @@ class Population {
 
 	static _cross(a, b) {
 		if (Math.random() > GEN_POPULATION.cross) {
-			return [a, b]
+			return [
+				{ weight: a.weight, parents: [a.code] }, 
+				{ weight: b.weight, parents: [b.code] }, 
+			]
 		}
-		const aV = Object.values(a);
-		const bV = Object.values(b);
+		const aV = Object.values(a.weight);
+		const bV = Object.values(b.weight);
 
-		const r = this._randInt(0, aV.length)
+		const r = this._randInt(1, aV.length-1)
 		const aN = [
 			...aV.slice(0, r),
 			...bV.slice(r, aV.length)
@@ -70,11 +79,15 @@ class Population {
 		]
 
 		let aO = {}, bO = {};
-		Object.keys(a).forEach((key, i) => {
+		Object.keys(a.weight).forEach((key, i) => {
 			aO[key] = aN[i]
 			bO[key] = bN[i]
 		})
-		return [aO, bO]
+		const parents = [a.code, b.code]
+		return [
+			{ weight: aO, parents }, 
+			{ weight: bO, parents }, 
+		]
 	}
 
 	static _mutatePopulation(population) {
@@ -85,10 +98,10 @@ class Population {
 	}
 
 	static _mutation(a) {
-		for (let key in a) {
+		for (let key in a.weight) {
 			if(Math.random() <= GEN_POPULATION.mutate){
 				const factor = Math.random() - 0.5;
-				a[key] = a[key] + ( a[key] * factor)
+				a.weight[key] = a.weight[key] + ( a.weight[key] * factor)
 			}
 		}
 		return a

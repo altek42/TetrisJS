@@ -4,6 +4,7 @@ import { Application } from "pixi.js";
 import Board from "../presentation/Board";
 import { BOARD_RENDER, GENETIC_1 } from "../Game.config";
 import Population from "../controller/utils/Population";
+import Genetic1Log from "../presentation/Genetic1Log";
 
 class Genetic1 {
 	constructor(rootElement) {
@@ -22,8 +23,9 @@ class Genetic1 {
 		const singleHeight = BOARD_RENDER.height + BOARD_RENDER.margin
 		const columns = Math.ceil(GENETIC_1.population / GENETIC_1.rowCount)
 
+		const totalWidth = (BOARD_RENDER.width + BOARD_RENDER.margin) * columns
 		this.app = new Application({
-			width: (BOARD_RENDER.width + BOARD_RENDER.margin) * columns,
+			width: totalWidth,
 			height: (BOARD_RENDER.height + BOARD_RENDER.margin) * GENETIC_1.rowCount,
 		});
 		this.app.view.className = 'game-canvas'
@@ -50,31 +52,28 @@ class Genetic1 {
 		})
 
 		//
+		this._pause = false;
 		this.start()
 
-		// //TEST
-		// let createOb = (n) => ({
-		// 	weight: { a: n, b: n, c: n, d: n },
-		// 	adaptation: n,
-		// })
-		// let arr = new Array(8).fill(0).map( (x,i) => createOb(i) )
-		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
-		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
-		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
-		// arr = Population.next(arr); console.log(arr); arr = arr.map( (x,i) => ({weight: x, adaptation: i}));
-		// //END TEST
-
+		//
 		this.label = document.createElement('p');
 		this.rootElement.appendChild(this.label)
 		this.label.className = 'gen-text'
 		this.genText = 0
+		//
+		this.logger = new Genetic1Log(this.rootElement)
 	}
 
-	start() {
+	handlePause = () => {
+
+	}
+
+	start(interval = 200) {
+		if(this._pause) return;
 		this.runAll()
 		this.loop = setInterval(() => {
 			this.update()
-		}, 200);
+		}, interval);
 	}
 
 	set genText(arg) {
@@ -101,16 +100,21 @@ class Genetic1 {
 		})
 		if (this.runningGames <= 0) {
 			clearInterval(this.loop)
+			this.logGeneration()
 			this.createNewPopupaltion()
 			this.genText = this._gen + 1
 			this.start()
 		}
 	}
 
+	logGeneration = () => {
+		this.logger.logGeneration(this.players)
+	}
+
 	createNewPopupaltion = () => {
-		let populationWeights = Population.next(this.players)
+		let genotype = Population.next(this.players)
 		for (let i = 0; i < this.players.length; i++) {
-			this.players[i].weight = populationWeights[i];
+			this.players[i].nextUnit = genotype[i];
 		}
 	}
 

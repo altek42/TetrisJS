@@ -4,6 +4,6 @@ export default function (
 	parentElement, 
 	{ path, component }
 ) {
-	const { loc='/' } = store.state
+	const { loc='/ai' } = store.state
 	if(path === loc) component.render(parentElement)
 }

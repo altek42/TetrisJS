@@ -1,5 +1,5 @@
 import Game from '../../game/Genetic1'
-import { HomeButton } from '../components/Button';
+import { HomeButton } from '../../components/Button';
 
 class Genetic1 {
 	

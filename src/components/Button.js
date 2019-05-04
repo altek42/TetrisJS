@@ -1,4 +1,4 @@
-import Store from '../../utils/Store'
+import Store from '../utils/Store'
 
 export function Button(label, onClick) {
 	const e = document.createElement('button')

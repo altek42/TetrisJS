@@ -1,6 +1,6 @@
 import SinglePlayerGame from '../../game/SinglePlayer'
 import Instruction from './Instruction';
-import { HomeButton } from '../components/Button'
+import { HomeButton } from '../../components/Button'
 class SinglePlayer {
 
 	render(parentElement) {
