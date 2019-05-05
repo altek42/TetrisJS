@@ -5,6 +5,7 @@ import Board from "../presentation/Board";
 import { BOARD_RENDER, GENETIC_1 } from "../Game.config";
 import Population from "../controller/utils/Population";
 import Genetic1Log from "../presentation/Genetic1Log";
+import NavigationGenetic1 from "../presentation/NavigationGenetic1";
 
 class Genetic1 {
 	constructor(rootElement) {
@@ -52,24 +53,30 @@ class Genetic1 {
 		})
 
 		//
-		this._pause = false;
-		this.start()
+		this._pause = true;
+		this.runningGames = 0;
 
 		//
-		this.label = document.createElement('p');
-		this.rootElement.appendChild(this.label)
-		this.label.className = 'gen-text'
-		this.genText = 0
-		//
+		this._nav = new NavigationGenetic1(this.rootElement, {
+			onPause: this.handlePause,
+			onStart: this.handleStart
+		});
 		this.logger = new Genetic1Log(this.rootElement)
 	}
 
 	handlePause = () => {
+		this._pause = true;
+	}
 
+	handleStart = () => {
+		this._pause = false;
+		if (this.runningGames <= 0) {
+			this.start();
+		}
 	}
 
 	start(interval = 200) {
-		if(this._pause) return;
+		if (this._pause) return;
 		this.runAll()
 		this.loop = setInterval(() => {
 			this.update()
@@ -102,7 +109,7 @@ class Genetic1 {
 			clearInterval(this.loop)
 			this.logGeneration()
 			this.createNewPopupaltion()
-			this.genText = this._gen + 1
+			this._nav.nextGen()
 			this.start()
 		}
 	}

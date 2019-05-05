@@ -6,32 +6,56 @@ class Genetic1Log {
 		rootElement.appendChild(root);
 		this._rootElement = root
 		this._counter = 0
+		this._open = false;
 	}
 
 	logGeneration(population) {
 		const row = document.createElement('div');
 		row.className = 'log-row'
 		this._rootElement.appendChild(row)
-		const header = document.createElement('p')
-		header.innerText = `Generation: ${this._counter}`
+		const headerLabel = document.createElement('p')
+		const headerDiv = document.createElement('div')
+		headerDiv.appendChild(headerLabel);
+		headerDiv.className='log-rov-header'
+
 		this._counter += 1;
-		row.appendChild(header);
+		row.appendChild(headerDiv);
 		const childContainer = document.createElement('div');
 		childContainer.className = 'log-row-container'
 		row.appendChild(childContainer);
 
+		let best = population[0]
 		population.forEach(x => {
+			if(best.adaptation < x.adaptation){
+				best = x
+			}
 			childContainer.appendChild(
 				this._formatUnit(x)
 			)
 		})
+
+		headerLabel.innerHTML = `Generation: ${this._counter}; Best ${this._formatCode(best.code)} Adaptation: ${best.adaptation}`
+		headerDiv.onclick = this._handleHeaderClick(childContainer)
+		childContainer.style = 'display: none;'
 	}
+
+	_handleHeaderClick = element => () => {
+		this._open = !this._open;
+		if(this._open){
+			element.style = ''
+		}else{
+			element.style = 'display: none;'
+		}
+	}
+
+	_formatCode = code => `Code: <b style="color: #${code}; background-color: #${contrast(code)};">${code}</b>`
 
 	_formatUnit(unit) {
 		const container = document.createElement('div')
+		container.className = 'log-row-unit-box'
 
 		const code = document.createElement('p')
-		code.innerHTML = `Code: <b style="color: #${unit.code}; background-color: #${contrast(unit.code)};">${unit.code}</b>`;
+		code.innerHTML = this._formatCode(unit.code);
 		container.appendChild(code);
 
 		const adaptation = document.createElement('p')

@@ -77,16 +77,15 @@ class Gen1 {
 	}
 
 	_loop = () => {
-		// while(!this._gameOver){
-		if (this._gameOver) return;
+		while(!this._gameOver){
+		// if (this._gameOver) return;
 		this._rateMoves()
 		const { x, rot } = this._getBestMove()
 		this._move(x, rot, true)
 		this._onUpdate()
-		// }
+		}
+		// setTimeout(this._loop, 100)
 
-		setTimeout(this._loop, 100)
-		// this.
 	}
 
 	_getBestMove() {

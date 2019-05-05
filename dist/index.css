@@ -52,6 +52,13 @@ body {
 	background-color: #cccccc;
 }
 
+.log-rov-header {
+	border: 1px solid #000000;
+	margin-top: 10px;
+	cursor: pointer;
+	padding: 0 10px;
+}
+
 .log-row-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -80,4 +87,19 @@ body {
 
 .log-row-unit-1 p {
 	margin: 0;
+}
+
+.log-row-unit-box{
+	width: 160px
+}
+
+/* NAV */
+
+.nav-row{
+	display: flex;
+	align-items: center;
+}
+
+.nav-row>*{
+	margin-right: 5px;
 }
